@@ -1,15 +1,40 @@
-API-APPLICATION PROGRAMMING INTERFACE
--Set interface between two software products.
+   
+var fs = require('fs')
 
-REST-REPRESNTABLE STATE TRANSFER
--Set of rules to handle request and response.
-REST uses CURD
-CREATE--POST
-READ--GET
-UPDATE--PUT
-DELETE--DELETE
+var args = process.argv.slice(2);
+args.forEach(function (val, index, array) {
+    if (val.startsWith('--create'))
+        create(val.split('=')[1])
+    else if (val.startsWith('--read'))
+        read(val.split('=')[1])
+    else if (val.startsWith('--update'))
+        update(val.split('=')[1])
+    else if (val.startsWith('--delete'))
+        _delete(val.split('=')[1])
+    else console.error('Invalid option')
+});
 
-NODE.JS
--How to make api usig NODE.JS
--BIG community can work together.
--secure and performent.
+function create(path) {
+    fs.writeFileSync(path, "");
+}
+
+function update(path) {
+    const readline = require('readline').createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    readline.question('Data ?\n', data => {
+        fs.writeFileSync(path, data);
+        readline.close();
+    });
+}
+
+function read(path) {
+    console.log(fs.readFileSync(path, 'utf-8'));
+
+}
+
+function _delete(path) {
+    fs.rmSync(path);
+}

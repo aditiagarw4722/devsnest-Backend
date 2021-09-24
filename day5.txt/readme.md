@@ -1,4 +1,8 @@
-var Text= require("./require");
-
-var obj=new Text();
-console.log(obj.print());
+class Test{
+    print(){
+      console.log("HelloWorld");
+    }
+  }
+  
+  module.exports=Test;
+  
